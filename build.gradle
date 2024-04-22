@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.herbet'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    //library Junit
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // cucumber-java
+    implementation group: 'io.cucumber', name: 'cucumber-java', version: '7.15.0'
+    // junit cocumber
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: '7.15.0'
+    //junit-vintage-engine
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.10.2'
+    //rest-assured
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.4.0'
+    // json
+    implementation group: 'org.json', name: 'json', version: '20240303'
+    //json-path
+    implementation group: 'com.jayway.jsonpath', name: 'json-path', version: '2.9.0'
+    //json schema validator
+    testImplementation group: 'io.rest-assured', name: 'json-schema-validator', version: '5.4.0'
+    //assertj-core
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.0'
+}
+
+//test {
+//    useJUnitPlatform()
+//}
+
+test {
+    useJUnitPlatform()
+    systemProperty ("cucumber.filter.tags",System.getProperty("cucumber.filter.tags"))
+}
+
+configurations {
+    cucumberRuntime{
+        extendsFrom testImplementation
+    }
+}
+
+
+//membuat custom gradle task
+//baris 36 jadi coment dan uncoment baris 40~49
+//jadi kita bisa nge run di terminal
+// ./gradlew apiTest
+
+tasks.register('apiTest') {
+    dependsOn assemble, testClasses
+
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:reports/cucumber-api-report.html',
+                    '--glue', 'stepDef',
+                    '--tags', '@api',
+                    'src/test/java/features']
+        }
+    }
+}

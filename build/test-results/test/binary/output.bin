@@ -1,0 +1,13 @@
+
+@api
+~Scenario: Test get list data normal                                          [90m# src/test/java/features/api.feature:4[0m
+step 1
+¨  [32mGiven [0m[32mprepare url for [0m[32m[1m"GET_LIST_USERS"[0m                                     [90m# stepDef.ApiStep.prepareUrlFor(java.lang.String)[0m
+step 2
+’  [32mAnd [0m[32mhit get API get list user[0m                                              [90m# stepDef.ApiStep.hitGetAPIGetListUser()[0m
+step 3
+ª  [32mThen [0m[32mvalidation status code is equals [0m[32m[1m200[0m                                  [90m# stepDef.ApiStep.validationStatusCodeIsEquals(int)[0m
+step 4
+   [32mThen [0m[32mvalidation response body get list users[0m                               [90m# stepDef.ApiStep.validationResponseBodyGetListUsers()[0m
+step 5
+¿  [32mThen [0m[32mvalidation response json with JSONSchema [0m[32m[1m"get_list_users_normal.json"[0m [90m# stepDef.ApiStep.validationResponseJsonWithJSONSchema(java.lang.String)[0m
