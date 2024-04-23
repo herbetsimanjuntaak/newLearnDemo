@@ -1,6 +1,4 @@
 package helper;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -32,8 +30,6 @@ public class Utility {
         options.addArguments("--no-sandbox"); //chrome bukan versi beta/alpa tapi versi production
         options.addArguments("--disable-dev-shm-usage"); //menghindari kegagalan akibat memori
         options.addArguments("--remote-allow-origins=*"); //chrome bisa kita remote dari selenium nya
-
-        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver(options);
         driver.manage().window().maximize(); // ini untuk maximize window nya waktu selenium berjalan
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3)); //untuk menunggu elemennya selama 3 detik

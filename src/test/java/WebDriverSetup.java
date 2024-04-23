@@ -2,7 +2,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 import java.time.Duration;
 
@@ -15,8 +14,6 @@ public class WebDriverSetup {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--remote-allow-origins=*");
-
-        WebDriverManager.chromedriver().setup(); // Mengatur chromedriver
 
         // Cobalah untuk membuat instance ChromeDriver
         try {
