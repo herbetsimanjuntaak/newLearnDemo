@@ -31,22 +31,28 @@ dependencies {
     testImplementation group: 'io.rest-assured', name: 'json-schema-validator', version: '5.4.0'
     //assertj-core
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.0'
+    //selenium
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.18.1'
+    //driver manager selenium
+    testImplementation 'io.github.bonigarcia:webdrivermanager:5.4.1'
+
+}
+
+test {
+    useJUnitPlatform()
 }
 
 //test {
 //    useJUnitPlatform()
+//    systemProperty ("cucumber.filter.tags",System.getProperty("cucumber.filter.tags"))
 //}
-
-test {
-    useJUnitPlatform()
-    systemProperty ("cucumber.filter.tags",System.getProperty("cucumber.filter.tags"))
-}
-
-configurations {
-    cucumberRuntime{
-        extendsFrom testImplementation
-    }
-}
+//
+//configurations {
+//    cucumberRuntime{
+//        extendsFrom testImplementation
+//    }
+//}
 
 
 //membuat custom gradle task
@@ -54,19 +60,19 @@ configurations {
 //jadi kita bisa nge run di terminal
 // ./gradlew apiTest
 
-tasks.register('apiTest') {
-    dependsOn assemble, testClasses
-
-    doLast {
-        javaexec {
-            main = "io.cucumber.core.cli.Main"
-            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-            args = [
-                    '--plugin', 'pretty',
-                    '--plugin', 'html:reports/cucumber-api-report.html',
-                    '--glue', 'stepDef',
-                    '--tags', '@api',
-                    'src/test/java/features']
-        }
-    }
-}
+//tasks.register('apiTest') {
+//    dependsOn assemble, testClasses
+//
+//    doLast {
+//        javaexec {
+//            main = "io.cucumber.core.cli.Main"
+//            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+//            args = [
+//                    '--plugin', 'pretty',
+//                    '--plugin', 'html:reports/cucumber-api-report.html',
+//                    '--glue', 'stepDef',
+//                    '--tags', '@api',
+//                    'src/test/java/features']
+//        }
+//    }
+//}
